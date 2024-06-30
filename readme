@@ -1,0 +1,78 @@
+# WP Engine Backup Trigger
+
+## Description
+
+WP Engine Backup Trigger is a WordPress plugin that allows administrators to easily trigger backups of their WP Engine-hosted websites directly from the WordPress dashboard. This plugin integrates with the WP Engine API to provide a seamless backup experience without leaving your WordPress admin area.
+
+## Features
+
+- Easy-to-use interface within the WordPress admin dashboard
+- Secure storage of WP Engine API credentials
+- Automatic fetching and display of available WP Engine installs
+- One-click backup triggering for selected installs
+- Clear feedback on backup status and any errors encountered
+
+## Requirements
+
+- WordPress 5.0 or higher
+- PHP 7.0 or higher
+- A WP Engine hosting account with API access enabled
+
+## Installation
+
+1. Download the plugin zip file.
+2. Log in to your WordPress admin panel and navigate to Plugins > Add New.
+3. Click the "Upload Plugin" button at the top of the page.
+4. Choose the plugin zip file you downloaded and click "Install Now".
+5. After installation, click "Activate Plugin".
+
+## Configuration
+
+1. After activation, go to Settings > WP Engine Backup in your WordPress admin panel.
+2. Enter your WP Engine User ID and Password. These are your API credentials, not your WP Engine account login. You can find or generate these in the WP Engine User Portal under the API Access page.
+3. Click "Save Credentials" to store your API information securely.
+4. If your credentials are valid, you'll see a dropdown list of your WP Engine installs. Select the install you want to backup.
+5. Click "Select Install" to save your choice.
+
+## Usage
+
+1. Navigate to Settings > WP Engine Backup in your WordPress admin panel.
+2. Ensure you have entered valid API credentials and selected an install.
+3. Click the "Trigger Backup" button to start a new backup.
+4. The plugin will display a success message with the backup ID if the backup was triggered successfully, or an error message if there was a problem.
+
+## Frequently Asked Questions
+
+**Q: Where can I find my WP Engine API credentials?**
+A: You can find or generate your API credentials in the WP Engine User Portal. Go to the API Access page in your account settings.
+
+**Q: Can I schedule automatic backups with this plugin?**
+A: Currently, this plugin only supports manual backup triggering. For scheduled backups, please use WP Engine's built-in backup system.
+
+**Q: Is this an official WP Engine plugin?**
+A: No, this is a third-party plugin that integrates with WP Engine's API. It is not officially supported by WP Engine.
+
+## Security Considerations
+
+This plugin stores your WP Engine API credentials in your WordPress database. While the credentials are stored securely, please ensure that you keep your WordPress installation up-to-date and secure.
+
+## Support
+
+For support, feature requests, or bug reports, please open an issue on the plugin's GitHub repository.
+
+## Contributing
+
+Contributions to improve WP Engine Backup Trigger are welcome. Please fork the repository and submit a pull request with your proposed changes.
+
+## License
+
+This plugin is licensed under the GPL v2 or later.
+
+## Changelog
+
+### 1.0
+- Initial release
+
+## Credits
+
+Developed by Ellis LaMay
