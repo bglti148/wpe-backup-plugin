@@ -4,6 +4,23 @@
 
 WP Engine Backup Trigger is a WordPress plugin that allows administrators to easily trigger backups of their WP Engine-hosted websites directly from the WordPress dashboard. This plugin integrates with the WP Engine API to provide a seamless backup experience without leaving your WordPress admin area.
 
+## File Structure
+
+wpengine-backup/
+├── includes/
+│   ├── class-wpengine-api.php
+│   ├── class-wpengine-backup.php
+│   └── class-admin-page.php
+├── assets/
+│   ├── css/
+│   │   └── admin-style.css
+│   └── js/
+│       └── admin-script.js
+├── templates/
+│   └── admin-page.php
+├── wpengine-backup-plugin.php
+└── readme.txt
+
 ## Features
 
 - Easy-to-use interface within the WordPress admin dashboard

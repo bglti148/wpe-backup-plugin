@@ -1,0 +1,11 @@
+.wrap h1 {
+    margin-bottom: 20px;
+}
+
+.form-table th {
+    width: 200px;
+}
+
+.error, .updated {
+    margin: 20px 0;
+}
