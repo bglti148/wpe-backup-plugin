@@ -135,18 +135,25 @@ class WPEngine_API {
     
         $url = $this->api_base_url . "/installs/{$install_id}/backups";
         $args = $this->get_api_args('POST', $user_id, $password);
+        
+        $backup_description = !empty($description) ? $description : 'Backup triggered from WordPress plugin';
+        
         $args['body'] = json_encode(array(
-            'description' => !empty($description) ? $description : 'Backup triggered from WordPress plugin',
+            'description' => $backup_description,
             'notification_emails' => array(get_option('admin_email'))
         ));
+    
+        // error_log('API Request: ' . print_r($args, true));  // Debug line
     
         $response = wp_remote_post($url, $args);
     
         if (is_wp_error($response)) {
+            // error_log('API Error: ' . $response->get_error_message());  // Debug line
             return $response;
         }
     
         $body = wp_remote_retrieve_body($response);
+        // error_log('API Response Body: ' . $body);  // Debug line
         return json_decode($body);
     }
 
@@ -159,5 +166,18 @@ class WPEngine_API {
             )
         );
         return $args;
+    }
+
+    public function validate_credentials_with_values($user_id, $password) {
+        if (empty($user_id) || empty($password)) {
+            return false;
+        }
+    
+        $url = $this->api_base_url . "/user";
+        $args = $this->get_api_args('GET', $user_id, $password);
+    
+        $response = wp_remote_get($url, $args);
+    
+        return !is_wp_error($response) && wp_remote_retrieve_response_code($response) === 200;
     }
 }

@@ -14,8 +14,8 @@ class WPEngine_Backup {
         return $this->api->validate_credentials();
     }
 
-    public function trigger_backup($install_id) {
-        return $this->api->trigger_backup($install_id);
+    public function trigger_backup($install_id, $description = '') {
+        return $this->api->trigger_backup($install_id, $description);
     }
 
     // Add this method back

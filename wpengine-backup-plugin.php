@@ -24,3 +24,18 @@ function wpengine_backup_plugin_init() {
 }
 
 add_action('plugins_loaded', 'wpengine_backup_plugin_init');
+
+
+// AJAX action to validate the credentials
+
+add_action('wp_ajax_validate_wpengine_credentials', 'validate_wpengine_credentials_callback');
+
+function validate_wpengine_credentials_callback() {
+    $user_id = $_POST['wpengine_user_id'];
+    $password = $_POST['wpengine_password'];
+    
+    $api = new WPEngine_API();
+    $valid = $api->validate_credentials_with_values($user_id, $password);
+    
+    wp_send_json_success(array('valid' => $valid));
+}
