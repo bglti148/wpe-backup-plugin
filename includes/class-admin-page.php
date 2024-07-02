@@ -33,17 +33,21 @@ class WPEngine_Backup_Admin_Page {
     }
 
     public function display_admin_page() {
+        $this->process_form_submission();
+        $install_id = $this->backup->get_current_install_id();
+        $site_url = get_site_url();
+        
         include WPENGINE_BACKUP_PLUGIN_PATH . 'templates/admin-page.php';
     }
 
     public function process_form_submission() {
-        if (isset($_POST['wpengine_install_id']) && check_admin_referer('wpengine_select_install', 'wpengine_select_install_nonce')) {
-            update_option('wpengine_install_id', sanitize_text_field($_POST['wpengine_install_id']));
-            add_settings_error('wpengine_messages', 'wpengine_message', __('Install selected successfully.', 'wpengine-backup-plugin'), 'updated');
-        }
-
         if (isset($_POST['trigger_backup']) && check_admin_referer('wpengine_backup_trigger', 'wpengine_backup_nonce')) {
-            $install_id = get_option('wpengine_install_id');
+            $install_id = $this->backup->get_current_install_id();
+            if (!$install_id) {
+                add_settings_error('wpengine_messages', 'wpengine_message', __('Unable to determine the current install ID. Please check your WP Engine API credentials.', 'wpengine-backup-plugin'), 'error');
+                return;
+            }
+    
             $result = $this->backup->trigger_backup($install_id);
             if ($result && isset($result->id)) {
                 add_settings_error('wpengine_messages', 'wpengine_message', __('Backup triggered successfully. Backup ID: ', 'wpengine-backup-plugin') . $result->id, 'updated');

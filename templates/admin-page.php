@@ -21,35 +21,22 @@
         <?php submit_button(__('Save Credentials', 'wpengine-backup-plugin')); ?>
     </form>
 
-    <?php
-    if ($this->backup->validate_credentials()) {
-        $installs = $this->backup->get_installs();
-        if ($installs) {
-            ?>
-            <h2><?php _e('Select Install', 'wpengine-backup-plugin'); ?></h2>
-            <form method="post" action="">
-                <?php wp_nonce_field('wpengine_select_install', 'wpengine_select_install_nonce'); ?>
-                <select name="wpengine_install_id">
-                    <?php
-                    foreach ($installs as $install) {
-                        echo '<option value="' . esc_attr($install->id) . '"' . selected(get_option('wpengine_install_id'), $install->id, false) . '>' . esc_html($install->name) . ' (' . esc_html($install->id) . ')</option>';
-                    }
-                    ?>
-                </select>
-                <?php submit_button(__('Select Install', 'wpengine-backup-plugin')); ?>
-            </form>
-
+    <?php if ($this->backup->validate_credentials()): ?>
+        <?php if ($install_id): ?>
             <h2><?php _e('Trigger Backup', 'wpengine-backup-plugin'); ?></h2>
+            <p><?php printf(__('Create WP Engine backup for %s', 'wpengine-backup-plugin'), $site_url); ?></p>
             <form method="post" action="">
                 <?php wp_nonce_field('wpengine_backup_trigger', 'wpengine_backup_nonce'); ?>
                 <p><input type="submit" name="trigger_backup" class="button button-primary" value="<?php _e('Trigger Backup', 'wpengine-backup-plugin'); ?>" /></p>
             </form>
-            <?php
-        } else {
-            echo '<div class="error"><p>' . __('Unable to fetch installs. Please check your credentials and try again.', 'wpengine-backup-plugin') . '</p></div>';
-        }
-    } else {
-        echo '<div class="error"><p>' . __('Please enter valid WP Engine API credentials.', 'wpengine-backup-plugin') . '</p></div>';
-    }
-    ?>
+        <?php else: ?>
+            <div class="notice notice-error">
+                <p><?php _e('Unable to determine the current install ID. Please check your WP Engine API credentials.', 'wpengine-backup-plugin'); ?></p>
+            </div>
+        <?php endif; ?>
+    <?php else: ?>
+        <div class="notice notice-error">
+            <p><?php _e('Please enter valid WP Engine API credentials.', 'wpengine-backup-plugin'); ?></p>
+        </div>
+    <?php endif; ?>
 </div>

@@ -6,8 +6,8 @@ class WPEngine_Backup {
         $this->api = $api;
     }
 
-    public function get_installs() {
-        return $this->api->get_installs();
+    public function get_current_install_id() {
+        return $this->api->get_current_install_id();
     }
 
     public function validate_credentials() {
@@ -17,4 +17,10 @@ class WPEngine_Backup {
     public function trigger_backup($install_id) {
         return $this->api->trigger_backup($install_id);
     }
+
+    // Add this method back
+    public function get_installs() {
+        return $this->api->get_installs();
+    }
+
 }
