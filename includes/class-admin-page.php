@@ -48,7 +48,12 @@ class WPEngine_Backup_Admin_Page {
                 return;
             }
     
-            $result = $this->backup->trigger_backup($install_id);
+            $description = isset($_POST['backup_description']) ? sanitize_text_field($_POST['backup_description']) : '';
+            if (empty($description)) {
+                $description = 'Backup triggered from WordPress plugin';
+            }
+    
+            $result = $this->backup->trigger_backup($install_id, $description);
             if ($result && isset($result->id)) {
                 add_settings_error('wpengine_messages', 'wpengine_message', __('Backup triggered successfully. Backup ID: ', 'wpengine-backup-plugin') . $result->id, 'updated');
             } else {

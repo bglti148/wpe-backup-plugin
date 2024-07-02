@@ -125,27 +125,27 @@ class WPEngine_API {
 
     
 
-    public function trigger_backup($install_id) {
+    public function trigger_backup($install_id, $description = '') {
         $user_id = get_option('wpengine_user_id');
         $password = get_option('wpengine_password');
-
+    
         if (empty($user_id) || empty($password) || empty($install_id)) {
             return false;
         }
-
+    
         $url = $this->api_base_url . "/installs/{$install_id}/backups";
         $args = $this->get_api_args('POST', $user_id, $password);
         $args['body'] = json_encode(array(
-            'description' => 'Backup triggered from WordPress plugin',
+            'description' => !empty($description) ? $description : 'Backup triggered from WordPress plugin',
             'notification_emails' => array(get_option('admin_email'))
         ));
-
+    
         $response = wp_remote_post($url, $args);
-
+    
         if (is_wp_error($response)) {
             return $response;
         }
-
+    
         $body = wp_remote_retrieve_body($response);
         return json_decode($body);
     }
