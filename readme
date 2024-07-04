@@ -48,6 +48,11 @@ wp-engine-backup-manager/
 4. Provide an email address for backup notifications.
 5. Click 'Create Backup' to initiate the backup process.
 
+## Security
+
+- API credentials are stored securely in the WordPress database.
+- When the plugin is deactivated, all stored API credentials are automatically deleted from the database for enhanced security.
+
 ## Frequently Asked Questions
 
 **Q: Where can I find my WP Engine API credentials?**

@@ -3,7 +3,7 @@
 Plugin Name: WP Engine Backup Manager
 Description: Manage WP Engine backups directly from your WordPress dashboard.
 Version: 1.0
-Author: Your Name
+Author: Ellis LaMay
 */
 
 // Exit if accessed directly
@@ -74,11 +74,27 @@ class WP_Engine_Backup_Manager {
                 <?php submit_button('Save Credentials'); ?>
             </form>
 
+            <!-- Credential Validation Status -->
+            <?php
+            $user_id = get_option('wpe_api_user_id');
+            $password = get_option('wpe_api_password');
+            
+            if (!empty($user_id) && !empty($password)) {
+                $validation_result = $this->api_handler->validate_credentials();
+                if ($validation_result['valid']) {
+                    echo '<div class="notice notice-success"><p>' . esc_html($validation_result['message']) . '</p></div>';
+                } else {
+                    echo '<div class="notice notice-error"><p>' . esc_html($validation_result['message']) . '</p></div>';
+                }
+            } else {
+                echo '<div class="notice notice-warning"><p>Please enter your API credentials and save them.</p></div>';
+            }
+            ?>
+
             <!-- Backup Creation Form -->
             <h2>Create Backup</h2>
             <?php
-            $credentials_valid = $this->api_handler->validate_credentials();
-            if ($credentials_valid) {
+            if (!empty($user_id) && !empty($password) && isset($validation_result['valid']) && $validation_result['valid']) {
                 $install_id = $this->get_current_install_id();
                 if ($install_id) {
                     ?>
@@ -123,7 +139,7 @@ class WP_Engine_Backup_Manager {
         if ($result['success']) {
             add_settings_error('wp_engine_backup_manager', 'backup_created', 'Backup created successfully!', 'updated');
         } else {
-            add_settings_error('wp_engine_backup_manager', 'backup_failed', 'Failed to create backup. Please try again.', 'error');
+            add_settings_error('wp_engine_backup_manager', 'backup_failed', 'Failed to create backup: ' . $result['error'], 'error');
         }
 
         set_transient('wp_engine_backup_manager_messages', get_settings_errors(), 30);
@@ -157,6 +173,11 @@ class WP_Engine_Backup_Manager {
 
         return false;
     }
+
+    public static function deactivate() {
+        delete_option('wpe_api_user_id');
+        delete_option('wpe_api_password');
+    }
 }
 
 // Initialize the plugin
@@ -164,3 +185,6 @@ function wp_engine_backup_manager_init() {
     WP_Engine_Backup_Manager::get_instance();
 }
 add_action('plugins_loaded', 'wp_engine_backup_manager_init');
+
+// Register deactivation hook
+register_deactivation_hook(__FILE__, array('WP_Engine_Backup_Manager', 'deactivate'));
