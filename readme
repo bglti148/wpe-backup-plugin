@@ -16,6 +16,11 @@ wp-engine-backup-manager/
 ├── wp-engine-backup-manager.php
 └── README.md
 
+- `wp-engine-backup-manager.php`: Main plugin file that initializes the plugin and sets up necessary hooks.
+- `includes/class-api-handler.php`: Handles all communication with the WP Engine API.
+- `includes/class-admin-page.php`: Manages the admin interface, including rendering and processing forms.
+- `includes/class-backup-manager.php`: Handles the core backup creation functionality.
+
 ## Features
 
 - Seamless integration with the WP Engine API
