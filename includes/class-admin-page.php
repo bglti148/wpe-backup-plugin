@@ -3,10 +3,18 @@
 class WP_Engine_Backup_Admin_Page {
     private $api_handler;
 
+    /**
+     * Constructor: Initialize the admin page
+     *
+     * @param WP_Engine_API_Handler $api_handler
+     */
     public function __construct($api_handler) {
         $this->api_handler = $api_handler;
     }
 
+    /**
+     * Add the admin menu item
+     */
     public function add_admin_menu() {
         add_menu_page(
             'WP Engine Backup Manager',
@@ -18,11 +26,17 @@ class WP_Engine_Backup_Admin_Page {
         );
     }
 
+    /**
+     * Register settings for the admin page
+     */
     public function register_settings() {
         register_setting('wp_engine_backup_manager_settings', 'wpe_api_user_id');
         register_setting('wp_engine_backup_manager_settings', 'wpe_api_password');
     }
 
+    /**
+     * Display the admin page
+     */
     public function display_admin_page() {
         ?>
         <div class="wrap">
@@ -99,6 +113,9 @@ class WP_Engine_Backup_Admin_Page {
         <?php
     }
 
+    /**
+     * Display admin notices
+     */
     public function display_admin_notices() {
         $messages = get_transient('wp_engine_backup_manager_messages');
         if ($messages) {
@@ -109,6 +126,11 @@ class WP_Engine_Backup_Admin_Page {
         }
     }
 
+    /**
+     * Get the current install ID
+     *
+     * @return string|false
+     */
     private function get_current_install_id() {
         $installs = $this->api_handler->get_installs();
         if (!$installs || !isset($installs['results'])) {
