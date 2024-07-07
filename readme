@@ -7,8 +7,14 @@ WP Engine Backup Manager is a WordPress plugin that allows you to manage WP Engi
 ## File Structure
 
 wp-engine-backup-manager/
+│
+├── includes/
+│   ├── class-api-handler.php
+│   ├── class-admin-page.php
+│   └── class-backup-manager.php
+│
 ├── wp-engine-backup-manager.php
-└── class-api-handler.php
+└── README.md
 
 ## Features
 
