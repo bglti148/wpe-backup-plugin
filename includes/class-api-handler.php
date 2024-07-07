@@ -15,22 +15,20 @@ class WP_Engine_API_Handler {
     }
 
     public function validate_credentials() {
-        // Check if credentials are set
         if (empty($this->user_id) || empty($this->password)) {
             return array('valid' => false, 'message' => 'API credentials are not set.');
         }
-    
-        // Only make the API call if credentials are set
+
         $response = wp_remote_get($this->api_base_url . '/user', array(
             'headers' => array(
                 'Authorization' => $this->get_auth_header(),
             ),
         ));
-    
+
         if (is_wp_error($response)) {
             return array('valid' => false, 'message' => 'Failed to connect to WP Engine API: ' . $response->get_error_message());
         }
-    
+
         $status_code = wp_remote_retrieve_response_code($response);
         
         if ($status_code === 200) {
