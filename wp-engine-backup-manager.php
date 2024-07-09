@@ -1,9 +1,10 @@
 <?php
 /*
 Plugin Name: WPE Backup Trigger
-Description: Manage WP Engine backups directly from your WordPress dashboard.
+Description: Trigger a WP Engine backup to be taken directly from the WordPress dashboard.
 Version: 1.0
 Author: Ellis LaMay
+Author URI: https://americaneagle.com
 */
 
 // Exit if accessed directly
