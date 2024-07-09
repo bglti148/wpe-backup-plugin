@@ -2,11 +2,11 @@
 
 ## Description
 
-WP Engine Backup Manager is a WordPress plugin that allows you to manage WP Engine backups directly from your WordPress dashboard. This plugin simplifies the process of creating and managing backups for your WP Engine-hosted website, eliminating the need to log into the WP Engine User Portal for basic backup tasks.
+WPE Backup Plugin is a WordPress plugin that allows you to manage WP Engine backups directly from your WordPress dashboard. This plugin simplifies the process of creating and managing backups for your WP Engine-hosted website, eliminating the need to log into the WP Engine User Portal for basic backup tasks.
 
 ## File Structure
 
-wpengine-backup/
+wpe-backup-plugin/
 │
 ├── includes/
 │   ├── class-api-handler.php
@@ -29,7 +29,6 @@ wpengine-backup/
 - Create backups with custom descriptions directly from your WordPress admin area
 - Automatic detection of your WP Engine install ID
 - Secure storage of API credentials
-- User-friendly interface for managing backups
 - Email notifications for backup completion
 
 ## Requirements
