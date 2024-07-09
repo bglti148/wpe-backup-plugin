@@ -39,7 +39,7 @@ wp-config.php
 /wp-content/plugins/*
 
 # Do not ignore specific plugin
-!wp-content/plugins/wp-generate-screenshot/
+!wp-content/plugins/wpengine-backup/
 
 # Ensure that the directory and all its contents are included
 # !wp-content/plugins/my-special-plugin/**
