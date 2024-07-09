@@ -55,10 +55,10 @@ wpe-backup-plugin/
 ### Creating a Backup
 
 1. Navigate to the 'WPE Backups' page in your WordPress admin panel.
-2. Scroll down to the 'Create Backup' section.
-3. Enter a description for your backup.
-4. Provide an email address for backup notifications.
-5. Click 'Create Backup' to initiate the backup process.
+2. Enter a description for your backup.
+3. Provide an email address for backup notifications.
+4. Click 'Create Backup' to initiate the backup process.
+5. Wait for confirmation email that backup is complete.
 
 ## Security
 
