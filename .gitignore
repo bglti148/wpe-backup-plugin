@@ -36,10 +36,10 @@ wp-config.php
 /wp-content/themes/*
 
 # Ignore all plugins
-/wp-content/plugins/*
+#/wp-content/plugins/*
 
 # Do not ignore specific plugin
-!wp-content/plugins/wpengine-backup/**
+#!wp-content/plugins/wpengine-backup/**
 
 # Ensure that the directory and all its contents are included
 # !wp-content/plugins/my-special-plugin/**
