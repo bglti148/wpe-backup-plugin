@@ -36,12 +36,12 @@ wpe-backup-plugin/
 - WordPress 5.0 or higher
 - PHP 7.0 or higher
 - A WP Engine hosting account
-- WP Engine API credentials (User ID and Password)
+- WP Engine API credentials
 
 ## Installation
 
 1. Download the plugin zip file or clone the repository.
-2. Upload the `wp-engine-backup-manager` folder to the `/wp-content/plugins/` directory of your WordPress installation.
+2. Upload the `wpe-backup-plugin` folder to the `/wp-content/plugins/` directory of your WordPress installation.
 3. Activate the plugin through the 'Plugins' menu in WordPress.
 
 ## Configuration
