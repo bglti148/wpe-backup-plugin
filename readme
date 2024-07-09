@@ -6,7 +6,7 @@ WP Engine Backup Manager is a WordPress plugin that allows you to manage WP Engi
 
 ## File Structure
 
-wp-engine-backup-manager/
+wpengine-backup/
 │
 ├── includes/
 │   ├── class-api-handler.php
@@ -15,6 +15,8 @@ wp-engine-backup-manager/
 │
 ├── wp-engine-backup-manager.php
 └── README.md
+
+## Architecture
 
 - `wp-engine-backup-manager.php`: Main plugin file that initializes the plugin and sets up necessary hooks.
 - `includes/class-api-handler.php`: Handles all communication with the WP Engine API.
@@ -78,14 +80,6 @@ A: The plugin stores your API credentials securely in the WordPress database. Ho
 
 A: The current version does not support scheduled backups. This feature may be added in future updates.
 
-## Support
-
-For support, feature requests, or bug reports, please [open an issue](https://github.com/yourusername/wp-engine-backup-manager/issues) on our GitHub repository.
-
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This plugin is licensed under the GPL v2 or later.
