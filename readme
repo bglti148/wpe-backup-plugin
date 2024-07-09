@@ -13,7 +13,7 @@ wpe-backup-plugin/
 │   ├── class-admin-page.php
 │   └── class-backup-manager.php
 │
-├── wp-engine-backup-manager.php
+├── wpe-backup-plugin.php
 └── README.md
 
 ## Architecture
