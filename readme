@@ -62,8 +62,13 @@ wpe-backup-plugin/
 
 ## Security
 
-- API credentials are stored securely in the WordPress database.
 - When the plugin is deactivated, all stored API credentials are automatically deleted from the database for enhanced security.
+- API credentials (User ID and Password) are encrypted before being stored in the database.
+- Encryption is performed using WordPress's built-in `wp_encrypt_data()` function, which utilizes the site's unique salt keys for added security.
+- Decryption occurs only when needed for API calls, using the corresponding `wp_decrypt_data()` function.
+- When the plugin is deactivated, all stored API credentials are automatically deleted from the database.
+
+
 
 ## Frequently Asked Questions
 

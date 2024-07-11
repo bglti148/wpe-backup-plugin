@@ -5,12 +5,23 @@ class WP_Engine_API_Handler {
     private $user_id;
     private $password;
 
-    /**
-     * Constructor: Initialize the API handler
-     */
     public function __construct() {
-        $this->user_id = get_option('wpe_api_user_id');
-        $this->password = get_option('wpe_api_password');
+        $this->user_id = $this->decrypt(get_option('wpe_api_user_id'));
+        $this->password = $this->decrypt(get_option('wpe_api_password'));
+    }
+
+    public function encrypt($value) {
+        if (function_exists('wp_encrypt_data')) {
+            return wp_encrypt_data($value);
+        }
+        return $value;
+    }
+
+    public function decrypt($value) {
+        if (function_exists('wp_decrypt_data')) {
+            return wp_decrypt_data($value);
+        }
+        return $value;
     }
 
     /**

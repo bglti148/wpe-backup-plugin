@@ -3,13 +3,20 @@
 class WP_Engine_Backup_Admin_Page {
     private $api_handler;
 
-    /**
-     * Constructor: Initialize the admin page
-     *
-     * @param WP_Engine_API_Handler $api_handler
-     */
     public function __construct($api_handler) {
         $this->api_handler = $api_handler;
+    }
+
+    /**
+     * Register settings for the admin page
+     */
+    public function register_settings() {
+        register_setting('wp_engine_backup_manager_settings', 'wpe_api_user_id', array($this, 'encrypt_setting'));
+        register_setting('wp_engine_backup_manager_settings', 'wpe_api_password', array($this, 'encrypt_setting'));
+    }
+
+    public function encrypt_setting($value) {
+        return $this->api_handler->encrypt($value);
     }
 
     /**
@@ -26,13 +33,6 @@ class WP_Engine_Backup_Admin_Page {
         );
     }
 
-    /**
-     * Register settings for the admin page
-     */
-    public function register_settings() {
-        register_setting('wp_engine_backup_manager_settings', 'wpe_api_user_id');
-        register_setting('wp_engine_backup_manager_settings', 'wpe_api_password');
-    }
 
     /**
      * Display the admin page
@@ -40,7 +40,7 @@ class WP_Engine_Backup_Admin_Page {
     public function display_admin_page() {
         ?>
         <div class="wrap">
-            <h1>WP Engine Backup Manager</h1>
+            <h1>WP Engine Backup Trigger</h1>
             
             <!-- API Credentials Form -->
             <h2>API Credentials</h2>
