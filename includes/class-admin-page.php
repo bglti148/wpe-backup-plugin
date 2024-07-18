@@ -61,7 +61,7 @@ class WP_Engine_Backup_Admin_Page {
                 </table>
                 <?php submit_button('Save Credentials'); ?>
             </form>
-
+    
             <!-- Credential Validation Status -->
             <?php
             $user_id = get_option('wpe_api_user_id');
@@ -78,30 +78,35 @@ class WP_Engine_Backup_Admin_Page {
                 echo '<div class="notice notice-warning"><p>Please enter your API credentials and save them.</p></div>';
             }
             ?>
-
+    
             <!-- Backup Creation Form -->
             <h2>Create Backup</h2>
             <?php
             if (!empty($user_id) && !empty($password) && isset($validation_result['valid']) && $validation_result['valid']) {
                 $install_id = $this->get_current_install_id();
                 if ($install_id) {
-                    ?>
-                    <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
-                        <input type="hidden" name="action" value="create_backup">
-                        <?php wp_nonce_field('create_backup_nonce', 'backup_nonce'); ?>
-                        <table class="form-table">
-                            <tr valign="top">
-                                <th scope="row">Backup Description</th>
-                                <td><input type="text" name="backup_description" /></td>
-                            </tr>
-                            <tr valign="top">
-                                <th scope="row">Notification Email</th>
-                                <td><input type="email" name="notification_email" value="<?php echo esc_attr(get_option('admin_email')); ?>" required /></td>
-                            </tr>
-                        </table>
-                        <?php submit_button('Create Backup'); ?>
-                    </form>
-                    <?php
+                    $time_remaining = $this->get_time_until_next_backup();
+                    if ($time_remaining > 0) {
+                        echo '<p>You can create another backup in ' . $this->format_time_remaining($time_remaining) . '.</p>';
+                    } else {
+                        ?>
+                        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+                            <input type="hidden" name="action" value="create_backup">
+                            <?php wp_nonce_field('create_backup_nonce', 'backup_nonce'); ?>
+                            <table class="form-table">
+                                <tr valign="top">
+                                    <th scope="row">Backup Description</th>
+                                    <td><input type="text" name="backup_description" /></td>
+                                </tr>
+                                <tr valign="top">
+                                    <th scope="row">Notification Email</th>
+                                    <td><input type="email" name="notification_email" value="<?php echo esc_attr(get_option('admin_email')); ?>" required /></td>
+                                </tr>
+                            </table>
+                            <?php submit_button('Create Backup'); ?>
+                        </form>
+                        <?php
+                    }
                 } else {
                     echo '<p>Unable to detect the current install ID. Please check your WP Engine configuration.</p>';
                 }
@@ -111,6 +116,20 @@ class WP_Engine_Backup_Admin_Page {
             ?>
         </div>
         <?php
+    }
+
+    private function get_time_until_next_backup() {
+        $last_request = get_option('wpe_backup_last_request', 0);
+        $current_time = time();
+        $time_passed = $current_time - $last_request;
+        $time_remaining = 1800 - $time_passed; // 1800 seconds = 30 minutes
+        return max(0, $time_remaining);
+    }
+
+    private function format_time_remaining($seconds) {
+        $minutes = floor($seconds / 60);
+        $remaining_seconds = $seconds % 60;
+        return sprintf("%d minutes and %d seconds", $minutes, $remaining_seconds);
     }
 
     /**

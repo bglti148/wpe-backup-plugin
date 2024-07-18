@@ -68,22 +68,12 @@ wpe-backup-plugin/
 - Decryption occurs only when needed for API calls, using the corresponding `wp_decrypt_data()` function.
 - When the plugin is deactivated, all stored API credentials are automatically deleted from the database.
 
+## Rate Limiting
 
+To prevent excessive API usage and ensure system stability, the plugin implements a rate limit on backup creation:
 
-## Frequently Asked Questions
+- Users can only create one backup every 30 minutes.
+- If a user attempts to create a backup before the 30-minute cooldown period has elapsed, they will see an error message.
+- The admin page displays the remaining time until the next backup can be created.
 
-**Q: Where can I find my WP Engine API credentials?**
-
-A: You can generate API credentials in the WP Engine User Portal. Go to the API Access page to create a new set of credentials specifically for API use.
-
-**Q: Is it safe to store my API credentials in the plugin?**
-
-A: The plugin stores your API credentials securely in the WordPress database. However, it's always a good practice to use a unique set of API credentials for this plugin and not share them with other applications.
-
-**Q: Can I schedule automatic backups with this plugin?**
-
-A: The current version does not support scheduled backups. This feature may be added in future updates.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+This rate limiting helps protect both your WordPress site and the WP Engine API from potential overuse or abuse.
